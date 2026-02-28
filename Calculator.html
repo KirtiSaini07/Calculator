@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #756f6fd9;
+        }
+
+        #container {
+            width: 400px;
+            padding: 20px;
+            background-color: rgb(32, 33, 56);
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+
+        }
+
+        input {
+            padding: 8px;
+            font-size: 2rem;
+            color: black;
+            border: none;
+            background-color: #89487c;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+        }
+
+        #btncontainer {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 5px;
+
+        }
+
+        /* "*" is used to style all children of this container */
+        #btncontainer>* {
+            border: none;
+            border-radius: 5px;
+            background-color: rgb(157, 158, 175);
+            padding: 5px;
+            font-size: 2rem;
+            width: 80px;
+            cursor: pointer;
+
+            &:active {
+                transform: scale(0.9);
+            }
+
+            /* & is used to add pseudocodes within the same class */
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <input type="text" disabled>
+        <!-- disabled: User can't add inpuut in the input box -->
+        <div id="btncontainer">
+            <button>AC</button>
+            <button>DLT</button>
+            <button>/</button>
+            <button>*</button>
+
+            <button>7</button>
+            <button>8</button>
+            <button>9</button>
+            <button>-</button>
+
+            <button>4</button>
+            <button>5</button>
+            <button>6</button>
+            <button>+</button>
+
+            <button>1</button>
+            <button>2</button>
+            <button>3</button>
+            <button>%</button>
+
+            <button>00</button>
+            <button>0</button>
+            <button>.</button>
+            <button>=</button>
+        </div>
+    </div>
+    <script>
+        let inp = document.querySelector("input");
+        let btn = document.querySelector("#btncontainer");
+
+        function calc(event) {
+            let value = event.target.innerText;
+
+            // Prevent clicks outside buttons
+            if (event.target.tagName !== "BUTTON") return;
+
+            if (value === "AC") {
+                inp.value = "";
+                return;
+            }
+
+            if (value === "DLT") {
+                inp.value = inp.value.slice(0, -1);
+                return;
+            }
+
+            if (value === "=") {
+                try {
+                    inp.value = eval(inp.value);
+                } catch {
+                    inp.value = "Error";
+                }
+                return;
+            }
+
+            // Append numbers/operators
+            inp.value += value;
+        }
+
+        btn.addEventListener("click", calc);
+    </script>
+
+</body>
+
+</html>
